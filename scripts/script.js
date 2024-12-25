@@ -101,69 +101,96 @@ container.addEventListener("click", (e) => {
     } catch (error) {
       displayValue = "Error";
     }
-  } else if (buttonValue === "Pi") {
-    displayValue =
-      displayValue === ""
-        ? Math.PI.toString()
-        : (parseFloat(displayValue) * Math.PI).toString();
-  } else if (buttonValue === "e") {
-    displayValue =
-      displayValue === ""
-        ? Math.E.toString()
-        : (parseFloat(displayValue) * Math.E).toString();
-  } else if (buttonValue === "n!") {
-    displayValue += "!";
-  } else if (buttonValue === "square") {
-    displayValue = Math.pow(parseFloat(displayValue), 2).toString();
-  } else if (buttonValue === "log") {
-    displayValue += "log(";
-  } else if (buttonValue === "ln") {
-    displayValue += "ln(";
-  } else if (buttonValue === "sin") {
-    displayValue += "sin(";
-  } else if (buttonValue === "cos") {
-    displayValue += "cos(";
-  } else if (buttonValue === "tan") {
-    displayValue += "tan(";
-  } else if (buttonValue === "sec") {
-    displayValue += "sec(";
-  } else if (buttonValue === "csc") {
-    displayValue += "csc(";
-  } else if (buttonValue === "cot") {
-    displayValue += "cot(";
-  } else if (buttonValue === "Trigonometry") {
-    displayValue += "";
-  } else if (buttonValue === "tenpower") {
-    displayValue += "10^";
-  } else if (buttonValue === "Function") {
-    displayValue += "";
-  } else if (buttonValue === "M+") {
-    if (displayValue === "0" || displayValue === "") {
-      return;
-    } else {
-      memory += parseFloat(displayValue);
-    }
-  } else if (buttonValue === "M-") {
-    if (displayValue === "0" || displayValue === "") {
-      return;
-    } else {
-      memory -= parseFloat(displayValue);
-    }
-  } else if (buttonValue === "MC") {
-    memory = 0;
-  } else if (buttonValue === "MS") {
-    displayValue = "";
-  } else if (buttonValue === "HC") {
-    history = [];
-    updateHistory();
   } else {
-    if (displayValue === "0" || displayValue === "") {
-      displayValue = buttonValue;
-    } else {
-      displayValue += buttonValue;
+    switch (buttonValue) {
+      case "Pi":
+        displayValue =
+          displayValue === "" ? Math.PI : parseFloat(displayValue) * Math.PI;
+        break;
+
+      case "e":
+        displayValue =
+          displayValue === "" ? Math.E : parseFloat(displayValue) * Math.E;
+        break;
+
+      case "n!":
+        displayValue += "!";
+        break;
+
+      case "square":
+        displayValue = Math.pow(parseFloat(displayValue), 2);
+        break;
+
+      case "log":
+        displayValue += "log(";
+        break;
+
+      case "ln":
+        displayValue += "ln(";
+        break;
+
+      case "sin":
+        displayValue += "sin(";
+        break;
+
+      case "cos":
+        displayValue += "cos(";
+        break;
+
+      case "tan":
+        displayValue += "tan(";
+        break;
+
+      case "sec":
+        displayValue += "sec(";
+        break;
+
+      case "csc":
+        displayValue += "csc(";
+        break;
+
+      case "cot":
+        displayValue += "cot(";
+        break;
+
+      case "tenpower":
+        displayValue += "10^";
+        break;
+
+      case "M+":
+        if (displayValue !== "0" && displayValue !== "") {
+          memory += parseFloat(displayValue);
+        }
+        break;
+
+      case "M-":
+        if (displayValue !== "0" && displayValue !== "") {
+          memory -= parseFloat(displayValue);
+        }
+        break;
+
+      case "MC":
+        memory = 0;
+        break;
+
+      case "MS":
+        displayValue = "";
+        break;
+
+      case "HC":
+        history = [];
+        updateHistory();
+        break;
+
+      default:
+        if (displayValue === "0" || displayValue === "") {
+          displayValue = buttonValue;
+        } else {
+          displayValue += buttonValue;
+        }
+        break;
     }
   }
-
   display.value = displayValue;
   historyList.innerHTML = `History: ${history.join("<br>")}`;
   memoryList.innerText = `Memory: ${memory}`;
