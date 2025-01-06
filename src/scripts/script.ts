@@ -1,20 +1,20 @@
-const container = document.querySelector(".container");
-const display = document.getElementById("display");
-const historyList = document.getElementById("history");
-const memoryList = document.getElementById("memory");
+const container = document.querySelector(".container") as HTMLInputElement;
+const display = document.getElementById("display") as HTMLInputElement;
+const historyList = document.getElementById("history") as HTMLElement;
+const memoryList = document.getElementById("memory") as HTMLElement;
 
-let memory = 0;
-let history = [];
+let memory:number = 0;
+let historyOf:string[] = [];    
 let string = "";
-let displayValue = display.value;
+let displayValue  = display.value;
 
-container.addEventListener("click", (e) => {
-  const buttonValue = e.target.value;
+container.addEventListener("click", (e:MouseEvent) => {
+  const buttonValue : string = (e.target as HTMLButtonElement).value;
 
   if (buttonValue === "C") {
     displayValue = "0";
   } else if (buttonValue === "BACK") {
-    displayValue = displayValue.slice(0, -1);
+    displayValue = displayValue.slice(0, -1) || "0";
   } else if (buttonValue === "=") {
     let result = displayValue;
     if (result === "") {
@@ -23,9 +23,9 @@ container.addEventListener("click", (e) => {
 
     if (result.includes("ln")) {
       if (result.includes("ln(")) {
-        const number = parseFloat(
-          result.replace(/ln\(([^)]+)\)/g, (match, p1) => {
-            return Math.log(parseFloat(p1));
+        const number  = parseFloat(
+          result.replace(/ln\(([^)]+)\)/g, (match, p1):string=> {
+            return Math.log(parseFloat(p1)).toString();
           })
         );
         displayValue = number.toString();
@@ -35,8 +35,8 @@ container.addEventListener("click", (e) => {
 
     if (result.includes("log")) {
       const number = parseFloat(
-        result.replace(/log\(([^)]+)\)/g, (match, p1) => {
-          return Math.log10(parseFloat(p1));
+        result.replace(/log\(([^)]+)\)/g, (match:string, p1:string):string => {
+          return Math.log10(parseFloat(p1)).toString();
         })
       );
       displayValue = number.toString();
@@ -45,8 +45,8 @@ container.addEventListener("click", (e) => {
 
     if (result.includes("sin")) {
       const number = parseFloat(
-        result.replace(/sin\(([^)]+)\)/g, (match, p1) => {
-          return Math.sin(p1);
+        result.replace(/sin\(([^)]+)\)/g, (match:string, p1:string):string => {
+          return Math.sin(parseFloat(p1)).toString();
         })
       );
       displayValue = number.toString();
@@ -55,8 +55,8 @@ container.addEventListener("click", (e) => {
 
     if (result.includes("cos")) {
       const number = parseFloat(
-        result.replace(/cos\(([^)]+)\)/g, (match, p1) => {
-          return Math.cos(p1);
+        result.replace(/cos\(([^)]+)\)/g, (match:string, p1:string):string => {
+          return Math.cos(parseFloat(p1)).toString();
         })
       );
       displayValue = number.toString();
@@ -65,8 +65,8 @@ container.addEventListener("click", (e) => {
 
     if (result.includes("tan")) {
       const number = parseFloat(
-        result.replace(/tan\(([^)]+)\)/g, (match, p1) => {
-          return Math.tan(p1);
+        result.replace(/tan\(([^)]+)\)/g, (match:string, p1:string):string => {
+          return Math.tan(parseFloat(p1)).toString();
         })
       );
       displayValue = number.toString();
@@ -96,7 +96,7 @@ container.addEventListener("click", (e) => {
     try {
       let evaluatedResult = eval(result);
       displayValue = evaluatedResult.toString();
-      history.push(`${result} = ${evaluatedResult}`);
+      historyOf.push(`${result} = ${evaluatedResult}`);
       updateHistory();
     } catch (error) {
       displayValue = "Error";
@@ -105,12 +105,12 @@ container.addEventListener("click", (e) => {
     switch (buttonValue) {
       case "Pi":
         displayValue =
-          displayValue === "" ? Math.PI : parseFloat(displayValue) * Math.PI;
+          displayValue === "" ? (Math.PI).toString() : (parseFloat(displayValue) * Math.PI).toString();
         break;
 
       case "e":
         displayValue =
-          displayValue === "" ? Math.E : parseFloat(displayValue) * Math.E;
+          displayValue === "" ? (Math.E).toString(): (parseFloat(displayValue) * Math.E).toString();
         break;
 
       case "n!":
@@ -118,7 +118,7 @@ container.addEventListener("click", (e) => {
         break;
 
       case "square":
-        displayValue = Math.pow(parseFloat(displayValue), 2);
+        displayValue = (Math.pow(parseFloat(displayValue), 2)).toString();
         break;
 
       case "log":
@@ -178,7 +178,7 @@ container.addEventListener("click", (e) => {
         break;
 
       case "HC":
-        history = [];
+        historyOf = [];
         updateHistory();
         break;
 
@@ -192,22 +192,22 @@ container.addEventListener("click", (e) => {
     }
   }
   display.value = displayValue;
-  historyList.innerHTML = `History: ${history.join("<br>")}`;
+  historyList.innerHTML = `History: ${historyOf.join("<br>")}`;
   memoryList.innerText = `Memory: ${memory}`;
 });
 
 function updateHistory() {
   historyList.innerHTML = "";
-  history.forEach((entry) => {
+  historyOf.forEach((entry) => {
     const li = document.createElement("li");
     li.textContent = entry;
     historyList.appendChild(li);
   });
 }
 
-function factorial(n) {
+function factorial(n:number):number {
   if (n < 0) {
-    return "Error";
+    throw new Error("ERROR");
   }
   let result = 1;
   for (let i = 1; i <= n; i++) {
@@ -216,6 +216,6 @@ function factorial(n) {
   return result;
 }
 
-function exponentiate(base, exponent) {
+function exponentiate(base:number, exponent:number):number {
   return Math.pow(base, exponent);
 }
