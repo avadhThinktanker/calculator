@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+  gap: 1rem;
+}
+
+#history {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+#memory {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.container {
+  min-height: 80%;
+  margin: auto;
+  padding: 10px;
+  background-color: rgb(228, 228, 228);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  border-radius: 5px;
+}
+
+.container div {
+  display: grid;
+  grid-column: 1/6;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+#input input {
+  grid-column: 1/6;
+  height: 50px;
+  text-align: end;
+  /* border: none; */
+  padding: 0 10px;
+  outline: none;
+  font-size: 2em;
+}
+
+#id::placeholder {
+  background-color: #fff;
+}
+
+input[value="Trigonometry"] {
+  grid-column: 1/3;
+}
+
+input[value="Function"] {
+  grid-column: 3/5;
+}
+
+input[type="button"],
+button {
+  border: none;
+  padding: 12px 20px;
+  font-weight: 500;
+  font-size: medium;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid rgb(167, 167, 167);
+  cursor: pointer;
+}
+
+#col-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.num :nth-child(2),
+.num :nth-child(3),
+.num :nth-child(4) {
+  background-color: white;
+}
+
+#equal {
+  background-color: rgb(173, 172, 209);
+}
+
+#trigonometry-container {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+}
+
+#dropdown,
+#function {
+  position: relative;
+  display: inline-block;
+}
+
+#dropdown input {
+  padding: 12px 40px;
+}
+
+#function input {
+  padding: 12px 55px;
+}
+
+#dropdown1,
+#dropdown2 {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 60px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+#dropdown1 input {
+  color: black;
+  background-color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+#dropdown2 input {
+  color: black;
+  background-color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+#dropdown1 input:hover {
+  background-color: #ddd;
+}
+
+#dropdown:hover #dropdown1 {
+  display: grid;
+  padding: 5px;
+  grid-template-columns: auto auto auto;
+  background-color: gray;
+}
+
+#function:hover #dropdown2 {
+  display: grid;
+  padding: 5px;
+  grid-template-columns: auto auto auto;
+  background-color: gray;
+}
